@@ -30,17 +30,17 @@ ls -l
 #echo Compile Fibonaccilogic.cs to create the file: Fibonaccilogic.dll
 #mcs -target:library -out:Fibonaccilogic.dll Fibonaccilogic.cs
 
-echo Compile ExitUI.cs to create the file: ExitUI.dll
-mcs -target:library -r:System.Drawing.dll -r:System.Windows.Forms.dll -out:ExitUI.dll ExitUI.cs
+echo Compile BallUI.cs to create the file: BallUI.dll
+mcs -target:library -r:System.Drawing.dll -r:System.Windows.Forms.dll -out:BallUI.dll BallUI.cs
 
-echo Compile ExitMain.cs and link the two previously created dll files to create an executable file. 
-mcs -r:System -r:System.Windows.Forms -r:ExitUI.dll -out:ExitSign.exe ExitMain.cs
+echo Compile BallMain.cs and link the two previously created dll files to create an executable file. 
+mcs -r:System -r:System.Windows.Forms -r:BallUI.dll -out:BallInMotion.exe BallMain.cs
 
 echo View the list of files in the current folder
 ls -l
 
 echo Run the Assignment 1 program.
-./ExitSign.exe
+./BallInMotion.exe
 
 echo The script has terminated.
 

@@ -11,7 +11,7 @@ using System.Timers;
 
 
 
-public class ExitSignInterface: Form
+public class BallMotionInterface: Form
 {private Label title = new Label();
  private Label exitsign = new Label();
  private Button startbutton = new Button();
@@ -20,8 +20,8 @@ private Button fastbutton = new Button();
  private Panel headerpanel = new Panel();
  private Graphicpanel exitarrow = new Graphicpanel();
  private Panel controlpanel = new Panel();
- private Size maximumexitsign = new Size(1024,800);
- private Size minimumexitsign = new Size(1024,800);
+ private Size maximumexitsign = new Size(1200,960);
+ private Size minimumexitsign = new Size(1200,960);
 
  private enum Status {Stop, Start, Fast};
  private enum Arrow {Show, Hide}
@@ -40,16 +40,16 @@ private const double fast_interval = one_second / fast_clock;
 private const double slow_interval = one_second / slow_clock;
 
 
- public ExitSignInterface()  //Constructor begins here
+ public BallMotionInterface()  //Constructor begins here
    {//Set the size of the user interface box.
     MaximumSize = maximumexitsign;
     MinimumSize = minimumexitsign;
     //Initialize text strings
-    Text = "Exit Sign by Amelia Rotondo";
-    title.Text = "Exit Sign by Amelia Rotondo";
+    Text = "Ball In Motion by Amelia Rotondo";
+    title.Text = "Ball In Motion by Amelia Rotondo";
     exitsign.Text = "EXIT... This Way!?";
     startbutton.Text = "Start Flashing!";
-    fastbutton.Text = "EVEN FASTER!";
+    fastbutton.Text = "Go!!!";
     quitbutton.Text = "Quit... I Guess-";
     
     //Set sizes
@@ -59,9 +59,9 @@ private const double slow_interval = one_second / slow_clock;
     startbutton.Size = new Size(240,100);
     fastbutton.Size = new Size(240,100);
     quitbutton.Size = new Size(240,100);
-    headerpanel.Size = new Size(1024,200);
-    exitarrow.Size = new Size(1024,400);
-    controlpanel.Size = new Size(1024,200);
+    headerpanel.Size = new Size(1200,200);
+    exitarrow.Size = new Size(1200,560);
+    controlpanel.Size = new Size(1200,200);
     
     //Set colors
     headerpanel.BackColor = Color.LightPink;
@@ -92,7 +92,7 @@ private const double slow_interval = one_second / slow_clock;
     quitbutton.Location = new Point(720,50);
     headerpanel.Location = new Point(0,0);
     exitarrow.Location = new Point(0,200);
-    controlpanel.Location = new Point(0,600);
+    controlpanel.Location = new Point(0,760);
 
     //Add controls to the form
     Controls.Add(headerpanel);
@@ -123,7 +123,7 @@ private const double slow_interval = one_second / slow_clock;
     //Open this user interface window in the center of the display.
     CenterToScreen();
 
-   }//End of constructor ExitSignInterface
+   }//End of constructor BallMotionInterface
    
 // Clock Method to do the Arrow Stuff
 protected void arrowSwap(Object sender, EventArgs events)
@@ -278,4 +278,4 @@ protected void shutdown(System.Object sender, EventArgs even)                   
  }//End of class Graphicpanel
 
 
-}//End of clas ExitSignInterface
+}//End of clas BallMotionInterface
