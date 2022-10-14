@@ -10,8 +10,8 @@ public class BallMain
 {  static void Main(string[] args)
    {
       System.Console.WriteLine("Welcome to the Main method of the Amelia Rotondo Ball-In-Motion UI!");
-      BallMotionInterface exitapp = new BallMotionInterface();
-      Application.Run(exitapp);
+      BallMotionInterface ball = new BallMotionInterface();
+      Application.Run(ball);
       System.Console.WriteLine("Main method will now shutdown.");
    }//End of Main
 }//End of BallMain

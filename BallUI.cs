@@ -14,14 +14,20 @@ using System.Timers;
 public class BallMotionInterface: Form
 {private Label title = new Label();
  private Label exitsign = new Label();
- private Button startbutton = new Button();
-private Button fastbutton = new Button();
+ private Button gobutton = new Button();
  private Button quitbutton = new Button();
  private Panel headerpanel = new Panel();
  private Graphicpanel exitarrow = new Graphicpanel();
  private Panel controlpanel = new Panel();
  private Size maximumexitsign = new Size(1200,960);
  private Size minimumexitsign = new Size(1200,960);
+
+ private Label start_coord = new Label();
+ private Label fin_coord = new Label();
+ private TextBox x1_coordinput = new TextBox();
+ private TextBox y1_coordinput = new TextBox();
+ private TextBox x2_coordinput = new TextBox();
+ private TextBox y2_coordinput = new TextBox();
 
  private enum Status {Stop, Start, Fast};
  private enum Arrow {Show, Hide}
@@ -48,37 +54,49 @@ private const double slow_interval = one_second / slow_clock;
     Text = "Ball In Motion by Amelia Rotondo";
     title.Text = "Ball In Motion by Amelia Rotondo";
     exitsign.Text = "EXIT... This Way!?";
-    startbutton.Text = "Start Flashing!";
-    fastbutton.Text = "Go!!!";
+    gobutton.Text = "Go!!!";
     quitbutton.Text = "Quit... I Guess-";
+    start_coord.TextAlign = ContentAlignment.MiddleLeft;
+    fin_coord.TextAlign = ContentAlignment.MiddleLeft;
+    start_coord.Text = "Start:";
+    fin_coord.Text = "Finish:";
     
     //Set sizes
     Size = new Size(400,240);
     title.Size = new Size(800,44);
     exitsign.Size = new Size(400,36);
-    startbutton.Size = new Size(240,100);
-    fastbutton.Size = new Size(240,100);
+    gobutton.Size = new Size(240,100);
     quitbutton.Size = new Size(240,100);
     headerpanel.Size = new Size(1200,200);
     exitarrow.Size = new Size(1200,560);
     controlpanel.Size = new Size(1200,200);
+    x1_coordinput.Size = new Size(80, 200);
+    y1_coordinput.Size = new Size(80, 200);
+    x2_coordinput.Size = new Size(80, 200);
+    y2_coordinput.Size = new Size(80, 200);
+    start_coord.Size = new Size(180, 80);
+    fin_coord.Size = new Size(180, 80);
     
     //Set colors
     headerpanel.BackColor = Color.LightPink;
     exitarrow.BackColor = Color.Aquamarine;
     controlpanel.BackColor = Color.Crimson;
-    startbutton.BackColor = Color.Yellow;
-    fastbutton.BackColor = Color.LightSalmon;
+    gobutton.BackColor = Color.LightSalmon;
     quitbutton.BackColor = Color.Cyan;
     //quitbutton.BackColor = Color.FromArgb(0xA1,0xD4,0xAA);
     
     //Set fonts
     title.Font = new Font("Impact",33,FontStyle.Bold);
     exitsign.Font = new Font("Comic Sans MS", 30,FontStyle.Regular);
-    startbutton.Font = new Font("Comic Sans MS",15,FontStyle.Regular);
-    fastbutton.Font = new Font("Comic Sans MS",15,FontStyle.Bold);
+    gobutton.Font = new Font("Comic Sans MS",15,FontStyle.Bold);
     quitbutton.Font = new Font("Comic Sans MS",15,FontStyle.Italic);
-    
+    x1_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
+    y1_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
+    x2_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
+    y2_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
+    start_coord.Font = new Font("Comic Sans MS", 30, FontStyle.Bold);
+    fin_coord.Font = new Font("Comic Sans MS", 30, FontStyle.Bold);
+
     //Set position of text within a label
     title.TextAlign = ContentAlignment.MiddleCenter;
     exitsign.TextAlign = ContentAlignment.MiddleLeft;
@@ -87,9 +105,16 @@ private const double slow_interval = one_second / slow_clock;
     headerpanel.Location = new Point(0,0);
     title.Location = new Point(125,69);
     exitsign.Location = new Point(100,60);
-    startbutton.Location = new Point(130,50);
-    fastbutton.Location = new Point(400,50);
-    quitbutton.Location = new Point(720,50);
+
+      start_coord.Location = new Point (120, 5);
+      fin_coord.Location = new Point (355, 5);
+      x1_coordinput.Location = new Point(100, 75);
+      y1_coordinput.Location = new Point(200, 75);
+      x2_coordinput.Location = new Point(350, 75);
+      y2_coordinput.Location = new Point(450, 75);
+
+    gobutton.Location = new Point(650,50);
+    quitbutton.Location = new Point(920,50);
     headerpanel.Location = new Point(0,0);
     exitarrow.Location = new Point(0,200);
     controlpanel.Location = new Point(0,760);
@@ -100,14 +125,18 @@ private const double slow_interval = one_second / slow_clock;
     Controls.Add(exitarrow);
     exitarrow.Controls.Add(exitsign);
     Controls.Add(controlpanel);
-    controlpanel.Controls.Add(startbutton);
-    controlpanel.Controls.Add(fastbutton);
+    controlpanel.Controls.Add(gobutton);
     controlpanel.Controls.Add(quitbutton);
+    controlpanel.Controls.Add(x1_coordinput);
+    controlpanel.Controls.Add(y1_coordinput);
+    controlpanel.Controls.Add(x2_coordinput);
+    controlpanel.Controls.Add(y2_coordinput);
+    controlpanel.Controls.Add(start_coord);
+    controlpanel.Controls.Add(fin_coord);
 
     //Register the event handler.  In this case each button has an event handler, but no other 
     //controls have event handlers.
-    startbutton.Click += new EventHandler(startflash);
-    fastbutton.Click += new EventHandler(fastflash);
+    gobutton.Click += new EventHandler(fastflash);
     quitbutton.Click += new EventHandler(stoprun);  //The '+' is required.
 
     //Configure the clock that controls the shutdown      //<== New in version 2.2
@@ -150,19 +179,16 @@ protected void arrowSwap(Object sender, EventArgs events)
             outcome = Status.Start;
             arrow_clock.Interval= slow_interval;     // 2.0 Hz
             arrow_clock.Enabled = true;
-            startbutton.Text = "Pause the Flash?-";
            break;
       case Status.Start: 
             outcome = Status.Stop;
             arrow_clock.Enabled = false;
             arrow = Arrow.Show;
             exitarrow.Refresh();
-            startbutton.Text = "Resume the Flash!";
            break;
       case Status.Fast: 
             outcome = Status.Stop;
             arrow_clock.Enabled = false;
-            startbutton.Text = "Resume the Flash!";
            break;
      }
 
@@ -177,19 +203,19 @@ protected void arrowSwap(Object sender, EventArgs events)
             outcome = Status.Fast;
             arrow_clock.Interval= fast_interval;     // 10.0 Hz
             arrow_clock.Enabled = true;
-            fastbutton.Text = "SLOW DOWN!!!";
+            gobutton.Text = "SLOW DOWN!!!";
            break;
       case Status.Start: 
             outcome = Status.Fast;
             arrow_clock.Interval= fast_interval;     // 10.0 Hz
             arrow_clock.Enabled = true;
-            fastbutton.Text = "SLOW DOWN!!!";
+            gobutton.Text = "SLOW DOWN!!!";
            break;
       case Status.Fast: 
             outcome = Status.Stop;
             arrow_clock.Interval= slow_interval;     // 2.0 Hz
             arrow_clock.Enabled = true;
-            fastbutton.Text = "Speed up again...?";
+            gobutton.Text = "Speed up again...?";
            break;
      }
     
