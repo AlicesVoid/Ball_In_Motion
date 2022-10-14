@@ -24,6 +24,8 @@ public class BallMotionInterface: Form
 
  private Label start_coord = new Label();
  private Label fin_coord = new Label();
+ private Label local_coord = new Label();
+ private Label output_coord = new Label();
  private TextBox x1_coordinput = new TextBox();
  private TextBox y1_coordinput = new TextBox();
  private TextBox x2_coordinput = new TextBox();
@@ -56,65 +58,75 @@ private const double slow_interval = one_second / slow_clock;
     exitsign.Text = "EXIT... This Way!?";
     gobutton.Text = "Go!!!";
     quitbutton.Text = "Quit... I Guess-";
-    start_coord.TextAlign = ContentAlignment.MiddleLeft;
-    fin_coord.TextAlign = ContentAlignment.MiddleLeft;
     start_coord.Text = "Start:";
     fin_coord.Text = "Finish:";
+    local_coord.Text = "Location:";
+    output_coord.Text = "( , )";
     
     //Set sizes
     Size = new Size(400,240);
     title.Size = new Size(800,44);
     exitsign.Size = new Size(400,36);
-    gobutton.Size = new Size(240,100);
-    quitbutton.Size = new Size(240,100);
+    gobutton.Size = new Size(150,100);
+    quitbutton.Size = new Size(150,100);
     headerpanel.Size = new Size(1200,200);
     exitarrow.Size = new Size(1200,560);
     controlpanel.Size = new Size(1200,200);
-    x1_coordinput.Size = new Size(80, 200);
-    y1_coordinput.Size = new Size(80, 200);
-    x2_coordinput.Size = new Size(80, 200);
-    y2_coordinput.Size = new Size(80, 200);
+    x1_coordinput.Size = new Size(60, 200);
+    y1_coordinput.Size = new Size(60, 200);
+    x2_coordinput.Size = new Size(60, 200);
+    y2_coordinput.Size = new Size(60, 200);
     start_coord.Size = new Size(180, 80);
     fin_coord.Size = new Size(180, 80);
+    local_coord.Size = new Size(180, 40);
+    output_coord.Size = new Size(160, 60);
     
     //Set colors
     headerpanel.BackColor = Color.LightPink;
     exitarrow.BackColor = Color.Aquamarine;
-    controlpanel.BackColor = Color.Crimson;
+    controlpanel.BackColor = Color.LightYellow;
     gobutton.BackColor = Color.LightSalmon;
     quitbutton.BackColor = Color.Cyan;
+    output_coord.BackColor = Color.White;
     //quitbutton.BackColor = Color.FromArgb(0xA1,0xD4,0xAA);
     
     //Set fonts
     title.Font = new Font("Impact",33,FontStyle.Bold);
     exitsign.Font = new Font("Comic Sans MS", 30,FontStyle.Regular);
-    gobutton.Font = new Font("Comic Sans MS",15,FontStyle.Bold);
-    quitbutton.Font = new Font("Comic Sans MS",15,FontStyle.Italic);
+    gobutton.Font = new Font("Comic Sans MS",20,FontStyle.Bold);
+    quitbutton.Font = new Font("Comic Sans MS",20,FontStyle.Italic);
     x1_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
     y1_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
     x2_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
     y2_coordinput.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);
-    start_coord.Font = new Font("Comic Sans MS", 30, FontStyle.Bold);
-    fin_coord.Font = new Font("Comic Sans MS", 30, FontStyle.Bold);
+    start_coord.Font = new Font("Comic Sans MS", 20, FontStyle.Bold);
+    fin_coord.Font = new Font("Comic Sans MS", 20, FontStyle.Bold);
+    local_coord.Font = new Font("Comic Sans MS", 20, FontStyle.Bold);
+    output_coord.Font = new Font("Comic Sans MS", 20, FontStyle.Regular);  
 
     //Set position of text within a label
     title.TextAlign = ContentAlignment.MiddleCenter;
     exitsign.TextAlign = ContentAlignment.MiddleLeft;
+    start_coord.TextAlign = ContentAlignment.MiddleLeft;
+    fin_coord.TextAlign = ContentAlignment.MiddleLeft;
+    output_coord.TextAlign = ContentAlignment.MiddleCenter;
 
     //Set locations
     headerpanel.Location = new Point(0,0);
     title.Location = new Point(125,69);
     exitsign.Location = new Point(100,60);
 
-      start_coord.Location = new Point (120, 5);
-      fin_coord.Location = new Point (355, 5);
+      start_coord.Location = new Point (125, 5);
+      fin_coord.Location = new Point (330, 5);
       x1_coordinput.Location = new Point(100, 75);
-      y1_coordinput.Location = new Point(200, 75);
-      x2_coordinput.Location = new Point(350, 75);
-      y2_coordinput.Location = new Point(450, 75);
+      y1_coordinput.Location = new Point(180, 75);
+      x2_coordinput.Location = new Point(310, 75);
+      y2_coordinput.Location = new Point(390, 75);
+      local_coord.Location = new Point(780, 30);
+      output_coord.Location = new Point(770, 70);
 
-    gobutton.Location = new Point(650,50);
-    quitbutton.Location = new Point(920,50);
+    gobutton.Location = new Point(550,50);
+    quitbutton.Location = new Point(1000,50);
     headerpanel.Location = new Point(0,0);
     exitarrow.Location = new Point(0,200);
     controlpanel.Location = new Point(0,760);
@@ -133,6 +145,8 @@ private const double slow_interval = one_second / slow_clock;
     controlpanel.Controls.Add(y2_coordinput);
     controlpanel.Controls.Add(start_coord);
     controlpanel.Controls.Add(fin_coord);
+    controlpanel.Controls.Add(local_coord);
+    controlpanel.Controls.Add(output_coord);
 
     //Register the event handler.  In this case each button has an event handler, but no other 
     //controls have event handlers.
